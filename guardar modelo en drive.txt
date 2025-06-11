@@ -1,0 +1,11 @@
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+model_name = "facebook/bart-large-mnli"
+
+# Cargar desde Hugging Face
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
+
+# Guardar en Drive
+tokenizer.save_pretrained(model_path)
+model.save_pretrained(model_path)
