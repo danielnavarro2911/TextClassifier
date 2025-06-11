@@ -5,7 +5,7 @@ from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassifica
 
 
 class TextClassifier:
-    def __init__(self,model_path):
+    def __init__(self,model_path,hypothesis_template = False):
         '''
         Clase para predecir texto segun los labels introducidos usando bart-large-mnli.
         Este debe estar guardado en una carpeta de google drive
@@ -34,8 +34,10 @@ class TextClassifier:
         self.model_path = model_path
         tokenizer = AutoTokenizer.from_pretrained(model_path)
         model = AutoModelForSequenceClassification.from_pretrained(model_path)
-
-        self.classifier = pipeline("zero-shot-classification",model=model,tokenizer=tokenizer)
+        if hypothesis_template:
+            self.classifier = pipeline("zero-shot-classification",model=model,tokenizer=tokenizer,hypothesis_template = hypothesis_template)
+        else:
+            self.classifier = pipeline("zero-shot-classification",model=model,tokenizer=tokenizer)
     def predict(self,text:str,labels:list, umbral=0.9):
         results = self.classifier(text,labels)
                 
