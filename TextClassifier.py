@@ -45,4 +45,4 @@ class TextClassifier:
 
         for label,score in self.general_results.items():
             if score > umbral:
-                return label
+                return label,self.general_results
